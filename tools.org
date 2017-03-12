@@ -1,0 +1,9 @@
+#+TITLE: Tools
+Programs, packages, services, and other tools that I found useful during development
+* Editors
+- Spacemacs
+- VS Code
+* Packages
+** VS Code
+- JavaScript Standard Style
+- ruby-rubocop

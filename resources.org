@@ -1,0 +1,6 @@
+#+TITLE: Resources
+Tutorials, videos, and other instructional materials that I found useful in development
+* Git
+- [[https://ariejan.net/2011/07/05/git-squash-your-latests-commits-into-one/][Git: Squash your latests commits into one (de Vroom)]]
+- [[https://git-scm.com/book/en/v2][Pro Git (Chacon & Straub)]]
+- [[https://danielkummer.github.io/git-flow-cheatsheet/][Git Flow Cheatsheet]]
