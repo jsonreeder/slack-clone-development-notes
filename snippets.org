@@ -1,0 +1,13 @@
+#+TITLE: Snippets
+* [2017-03-14 Tue]
+** After today users will be able to
+- Navigate to the site on any computer
+** Tasks
+*** Hotfix proposal
+*** Heroku
+*** Rack Livereload
+*** Styling
+*** Start Auth
+** TIL
+*** Git rebasing
+- [[https://www.youtube.com/watch?v=2E23I9PzplM][video]]
