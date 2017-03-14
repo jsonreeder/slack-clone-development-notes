@@ -1,0 +1,4 @@
+#+TITLE: Maybe Later
+Things I might do later, but am definitely not doing now
+* Give users and bots full names
+- For now, username is enough for both
