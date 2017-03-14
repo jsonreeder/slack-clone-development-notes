@@ -1,0 +1,5 @@
+#+TITLE: Questions
+* Big Picture
+** How does a websocket work
+** Can I make my app receive incoming webhooks (external bots)?
+* Next Meeting

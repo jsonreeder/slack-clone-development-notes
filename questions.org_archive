@@ -1,0 +1,15 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /Users/Jason/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/questions.org
+
+
+* CNCL Do I have to use 'able' suffix for polymorphic tables?
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2017-03-14 Tue 11:38
+  :ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/questions.org
+  :ARCHIVE_CATEGORY: questions
+  :ARCHIVE_TODO: CNCL
+  :END:
+- I want to user ~member_id~ not ~belongable_id~ (either users or bots)
+- Answer: Rails will do this for me. Yes I should do it
