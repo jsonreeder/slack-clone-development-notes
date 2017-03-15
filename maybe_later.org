@@ -1,4 +1,12 @@
 #+TITLE: Maybe Later
 Things I might do later, but am definitely not doing now
-* Give users and bots full names
+* Store full names for users and bots
 - For now, username is enough for both
+* Store users emails
+- For now, username is enough
+* Host at ~slack.jasonreeder.com~
+* Transition to StandardJS instead of ESLint
+* Add extra items to the bottom of the splash page
+- Links to the GH repo
+- Links to my personal website
+- links to this reflections repo

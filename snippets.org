@@ -2,12 +2,30 @@
 * [2017-03-14 Tue]
 ** After today users will be able to
 - Navigate to the site on any computer
+- See something beautiful
 ** Tasks
-*** Hotfix proposal
-*** Heroku
-*** Rack Livereload
-*** Styling
-*** Start Auth
+*** DONE Hotfix proposal
+CLOSED: [2017-03-14 Tue 14:42]
+*** DONE React Hello World
+CLOSED: [2017-03-14 Tue 16:01]
+*** DONE Heroku
+CLOSED: [2017-03-14 Tue 16:01]
+*** DONE Start Styling conventions
+CLOSED: [2017-03-14 Tue 23:03]
 ** TIL
 *** Git rebasing
+- Use ~fixup~ to remove old commit messages (instead of ~squash~)
+** Resources
+*** Git rebasing
 - [[https://www.youtube.com/watch?v=2E23I9PzplM][video]]
+*** Flex
+- [[https://css-tricks.com/snippets/css/a-guide-to-flexbox/][tutorial]]
+*** Color pickers
+- [[http://www.colorcombos.com/][colorcombos]]
+** Dead Ends
+- I tried to start testing using Jest and Enzyme. I was able to write a successful simple test in ES5 syntax, but writing anything in ES6 syntax was throwing errors. I will have to postpone JavaScript testing.
+* [2017-03-15 Wed]
+** Tasks
+*** Rack Livereload
+- https://gist.github.com/louisscruz/85d8d9e188455961134d26f1b5dda1ca
+*** Auth
