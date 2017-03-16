@@ -1,0 +1,15 @@
+#+TITLE: Come Back
+Tasks to come back to, temporarily postponed
+* Add avatars to users
+* Make sure that backed ~ensure_signed_in~ lines up with frontend permissions
+- In other words, you can't use the console to go to pages you shouldn't otherwise be able to see
+* Multiple login
+- Behavior
+  - In the console
+  - Sign in as a user
+  - Sign in as another user
+  - No error is thrown
+- Is this a problem? Should you have to sign out first?
+* Convert join link on splash page to button
+* Add 'product' to navbars
+* Better Big button hover effect

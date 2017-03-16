@@ -1,4 +1,27 @@
 #+TITLE: Snippets
+* [2017-03-15 Wed]
+** After today users will be able to
+Enter the application by
+- Clicking a button to log in as one of two guests
+- Sign up as a new user
+- Log in as a returning user
+** Tasks
+*** DONE Add Rack Livereload
+CLOSED: [2017-03-15 Wed 09:26]
+- https://gist.github.com/louisscruz/85d8d9e188455961134d26f1b5dda1ca
+*** DONE Auth
+CLOSED: [2017-03-15 Wed 23:34]
+**** DONE Configure DB
+CLOSED: [2017-03-15 Wed 09:59]
+**** DONE Terminal
+CLOSED: [2017-03-15 Wed 09:59]
+**** DONE Console
+CLOSED: [2017-03-15 Wed 14:38]
+**** Browser guest
+**** Browser log in
+**** Browser sign up
+** Thoughts
+- Git flow is awesome! Had my first hotfix today (forgot to install lodash). Git flow made it super easy to manage the branching.
 * [2017-03-14 Tue]
 ** After today users will be able to
 - Navigate to the site on any computer
@@ -24,8 +47,3 @@ CLOSED: [2017-03-14 Tue 23:03]
 - [[http://www.colorcombos.com/][colorcombos]]
 ** Dead Ends
 - I tried to start testing using Jest and Enzyme. I was able to write a successful simple test in ES5 syntax, but writing anything in ES6 syntax was throwing errors. I will have to postpone JavaScript testing.
-* [2017-03-15 Wed]
-** Tasks
-*** Rack Livereload
-- https://gist.github.com/louisscruz/85d8d9e188455961134d26f1b5dda1ca
-*** Auth

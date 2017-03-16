@@ -3,3 +3,4 @@
 ** How does a websocket work
 ** Can I make my app receive incoming webhooks (external bots)?
 * Next Meeting
+** How can I do guest login without putting the method on the window?

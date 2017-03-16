@@ -10,3 +10,6 @@ Things I might do later, but am definitely not doing now
 - Links to the GH repo
 - Links to my personal website
 - links to this reflections repo
+* Good password validation
+- The default gemfile has the following line, which might be helpful
+  : Use ActiveModel has_secure_password
