@@ -13,3 +13,5 @@ Things I might do later, but am definitely not doing now
 * Good password validation
 - The default gemfile has the following line, which might be helpful
   : Use ActiveModel has_secure_password
+* Facilitate multiple sign ins
+- After logging in as a guest user, a bar appears at the top and says (do you want to sign in as _ as well in an incognito browser?)

@@ -13,3 +13,28 @@ Tasks to come back to, temporarily postponed
 * Convert join link on splash page to button
 * Add 'product' to navbars
 * Better Big button hover effect
+* Add small text at the bottom of the splash page
+- To sign in instead
+* Add small text to the bottom of the forms
+- For other sign in options
+* Remove production error message
+: Warning: It looks like you're using a minified copy of the development build of React. When deploying React apps to production, make sure to use the production build which skips development warnings and is faster. See https://fb.me/react-minification for more details.
+* Require logged in for messages page
+* Back button protection
+- now if you sign in and then hit the back button enough, you can be redirected to the sign in / try page. It would be better to prevent access to those pages if signed in.
+* Add border change on selected field
+* Remove original greeting view ("Hi so and so")
+* Add a link to refresh the pair choice for try
+* Replace sign out button on messages page
+- Tried to set up font awesome, unsuccessfully
+* Add backshadow to button text
+- Hard to read
+* Add a note for guests
+- "Don't like these guests? Get more:"
+- Probably add a button. I could just tell them to refresh
+* Clear errors
+- Recreate:
+  - try an invalid sign in
+  - then go to join
+  - errors will persist
+  - instead they should be cleared

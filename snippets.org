@@ -1,4 +1,32 @@
 #+TITLE: Snippets
+* [2017-03-17 Fri] 
+** After today users will be able to
+- Be members in channels
+- See the channels they belong to
+- Join a new channel
+* [2017-03-16 Thu]
+** After today users will be able to
+- Seamlessly sign in as guests
+- See the messages page
+- See all the channels
+** Tasks
+*** DONE Improve guest sign in
+    CLOSED: [2017-03-16 Thu 17:18]
+- Address Heroku bug
+- More than two guests
+  - multiple maudes
+  - or maybe a few guest users show up as options on the frontend (guest users currently in user are not available)
+*** DONE Build massages component shell
+    CLOSED: [2017-03-16 Thu 17:18]
+*** DONE Add fora to database
+    CLOSED: [2017-03-16 Thu 22:16]
+*** DONE Display channels in messages component
+    CLOSED: [2017-03-16 Thu 22:16]
+** TIL
+- On a flexed component, set height with ~vh~ not ~%~. ~100vh~ will fill the whole screen.
+- Before running ~bundle installe~, stop the rails server. Otherwise new packages might not install.
+** Short term
+- Use forum name not id
 * [2017-03-15 Wed]
 ** After today users will be able to
 Enter the application by
