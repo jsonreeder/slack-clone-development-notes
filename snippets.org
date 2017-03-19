@@ -1,12 +1,42 @@
 #+TITLE: Snippets
+
+* [2017-03-19 Sun]
+** After today users will be able to
+*** See /only/ the channels they belong to
+*** Join a new channel
+*** Start a new direct message to one person
+*** Start a new direct message to multiple people
+*** See a history of their messages in channels and direct messages
+*** See a responsive splash page
+** Tasks
+*** Forums
+**** Change channel display to only show channels that the user is a member in
+**** Allow users to create new memberships (join new channels)
+**** Add DMs
+***** Add placeholder views
+****** DMs index
+****** Creating new DM page )similar to joining a new forum
+***** Seed
+***** Replace placeholder with data fetched from database
+*** Messages
+**** Add placeholder view for messages
+**** Add messages table
+**** Seed some data
+**** Replace placeholder with data fetched from database
+** Thoughts
+- If possible, I'd like to finish all of the major display components
+- The next still will be to plug in messages
 * [2017-03-17 Fri] 
 ** After today users will be able to
-- See the channels they belong to
-- See the other members of those channels
-- Join a new channel
-- Start a new direct message to one person
-- Start a new direct message to multiple people
-- See a responsive splash page
+*** DONE See the channels they belong to
+CLOSED: [2017-03-18 Sat 17:04]
+*** DONE See the other members of those channels
+CLOSED: [2017-03-18 Sat 17:04]
+*** Join a new channel
+*** Start a new direct message to one person
+*** Start a new direct message to multiple people
+*** See a history of their messages in channels and direct messages
+*** See a responsive splash page
 ** Tasks
 *** DONE Add memberships
 CLOSED: [2017-03-17 Fri 10:37]
