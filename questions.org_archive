@@ -13,3 +13,24 @@ Archived entries from file /Users/Jason/Created/Projects/aa-projects/fullstack/s
   :END:
 - I want to user ~member_id~ not ~belongable_id~ (either users or bots)
 - Answer: Rails will do this for me. Yes I should do it
+
+* DONE How can I do guest sign in without putting the method on the window?
+CLOSED: [2017-03-17 Fri 10:39]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-17 Fri 10:39
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/questions.org
+:ARCHIVE_OLPATH: Next Meeting
+:ARCHIVE_CATEGORY: questions
+:ARCHIVE_TODO: DONE
+:END:
+- The guest user sign in is a little buggy on Heroku. I think this is why.
+
+* DONE For my MessagesContainer react components, do I need sub containers?
+CLOSED: [2017-03-17 Fri 10:39]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-17 Fri 10:39
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/questions.org
+:ARCHIVE_OLPATH: Next Meeting
+:ARCHIVE_CATEGORY: questions
+:ARCHIVE_TODO: DONE
+:END:

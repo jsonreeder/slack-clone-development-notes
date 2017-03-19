@@ -3,6 +3,4 @@
 ** How does a websocket work
 ** Can I make my app receive incoming webhooks (external bots)?
 * Next Meeting
-** How can I do guest sign in without putting the method on the window?
-- The guest user sign in is a little buggy on Heroku. I think this is why.
-** For my MessagesContainer react components, do I need sub containers?
+** Is there a way to write my message react components without so much conditional rendering?

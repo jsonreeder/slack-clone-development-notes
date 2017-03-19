@@ -38,3 +38,10 @@ Tasks to come back to, temporarily postponed
   - then go to join
   - errors will persist
   - instead they should be cleared
+* Qbot for bots
+* Sort users / channels
+- Alphabetical
+- Could also sort by most recent sign in (or put ones that have signed in today at the top). This would be an easy workaround to figuring out who's online
+* Fix position of navbar
+* Disable rubber band scrolling on messages view
+* Make splash page scrollable

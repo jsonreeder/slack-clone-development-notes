@@ -1,9 +1,33 @@
 #+TITLE: Snippets
 * [2017-03-17 Fri] 
 ** After today users will be able to
-- Be members in channels
 - See the channels they belong to
+- See the other members of those channels
 - Join a new channel
+- Start a new direct message to one person
+- Start a new direct message to multiple people
+- See a responsive splash page
+** Tasks
+*** DONE Add memberships
+CLOSED: [2017-03-17 Fri 10:37]
+*** Display memberships
+**** DONE Display all users
+CLOSED: [2017-03-17 Fri 15:09]
+**** DONE Display users who are members in channel
+CLOSED: [2017-03-17 Fri 15:09]
+**** Change channel display to only show channels that the user is a member in
+*** DMs
+**** Prepare display of DM
+**** Add DM forums to seeds
+**** Display those DMs
+*** Allow users to create new memberships
+*** Allow users to create new channels (DMs)
+*** Take another look at styling
+** Thoughts
+- A tough day. I did not finish components in the time that I had estimated. Friday.
+- I significantly underestimated the amount of time that it would take me to build the forums (channels) component. The two factors that I underestimated there were (1) the fact that creating forums also meant creating the join table (memberships) and (2) the fact that to display the forums component (~/messages/:forumName~) I would have to build the main view of the entire application.
+- The main problem here was estimation not productivity. I think I'm working at a reasonable pace and that my estimation was inaccurate.
+- In general, I'm very happy that I've taken a user-centric view. Whenever possible, I've created views with dummy data before adding the backend to send the data. That has meant that after I finish adding in the backend it is very easy to plug it into the front end view that I've already made. It has allowed me to split concerns and focus on display separately from information. It has also meant that I almost always have a visual to /show/ for my work.
 * [2017-03-16 Thu]
 ** After today users will be able to
 - Seamlessly sign in as guests

@@ -1,0 +1,18 @@
+#+TITLE: Seed Ideas
+Awesome things that I'd like to reference in the project
+* Wikipedia Articles
+- https://en.wikipedia.org/wiki/Caecilian
+- https://en.wikipedia.org/wiki/Wood_frog
+- https://en.wikipedia.org/wiki/Enteroctopus_dofleini
+- https://en.wikipedia.org/wiki/Naked_mole-rat
+- https://en.wikipedia.org/wiki/Amphiprioninae
+- https://en.wikipedia.org/wiki/Axolotl
+- https://en.wikipedia.org/wiki/New_Mexico_whiptail
+- https://en.wikipedia.org/wiki/Yeast
+- https://en.wikipedia.org/wiki/Demon_core
+- https://en.wikipedia.org/wiki/SL-1
+- https://en.wikipedia.org/wiki/Goi%C3%A2nia_accident
+* Topics
+- Software bug: Smart ship USS Yorktown was left dead in the water in 1997 for nearly 3 hours after a divide by zero error.[30]
+- The Corrupted Blood incident was a software bug in World of Warcraft that caused a status ailment, that was supposed to be locally restricted to a certain level of the game, to be set free, affecting all players everywhere in the virtual game world. This caused players to avoid crowded places in-game, just like in a "real world" epidemic, and the bug became the centre of some academic research on the spread of infectious diseases.[36]
+- http://mysite.science.uottawa.ca/rsmith43/BieberFever.pdf
