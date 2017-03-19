@@ -3,4 +3,4 @@
 ** How does a websocket work
 ** Can I make my app receive incoming webhooks (external bots)?
 * Next Meeting
-** Is there a way to write my message react components without so much conditional rendering?
+** Why is the details button not rerendering?

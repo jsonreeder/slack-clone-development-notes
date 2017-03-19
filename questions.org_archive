@@ -34,3 +34,13 @@ CLOSED: [2017-03-17 Fri 10:39]
 :ARCHIVE_CATEGORY: questions
 :ARCHIVE_TODO: DONE
 :END:
+
+* DONE Is there a way to write my message react components without so much conditional rendering?
+CLOSED: [2017-03-19 Sun 12:11]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-19 Sun 12:11
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/questions.org
+:ARCHIVE_OLPATH: Next Meeting
+:ARCHIVE_CATEGORY: questions
+:ARCHIVE_TODO: DONE
+:END:

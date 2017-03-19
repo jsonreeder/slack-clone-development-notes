@@ -1,7 +1,8 @@
 #+TITLE: Snippets
 * [2017-03-19 Sun]
 ** After today users will be able to
-*** See /only/ the channels they belong to
+*** DONE See /only/ the channels they belong to
+CLOSED: [2017-03-19 Sun 09:57]
 *** Show and hide the channel details view
 *** Join a new channel
 *** Start a new direct message to one person
@@ -10,11 +11,15 @@
 *** See a responsive splash page
 ** Tasks
 *** Forums
-**** Change channel display to only show channels that the user is a member in
+**** DONE Change channel display to only show channels that the user is a member in
+CLOSED: [2017-03-19 Sun 10:02]
 *** Details view
-**** Improve styling of ~details~ views
-**** Make ~details~ view hideableable
-**** Only display when at the correct url path (~details~)
+**** DONE Improve styling of ~details~ views
+CLOSED: [2017-03-19 Sun 16:20]
+**** DONE Make ~details~ view hideableable
+CLOSED: [2017-03-19 Sun 16:20]
+**** DONE Only display when at the correct url path (~details~)
+CLOSED: [2017-03-19 Sun 16:20]
 *** More Forums
 **** Allow users to create new memberships (join new channels)
 **** Add DMs
@@ -28,9 +33,13 @@
 **** Add messages table
 **** Seed some data
 **** Replace placeholder with data fetched from database
+** Short Term Memory
+- Pick up at allow users to join channels
 ** Thoughts
 - If possible, I'd like to finish all of the major display components
 - The next still will be to plug in messages
+** Tough points
+- Added a button to show/hide details view for a given message, but it doesn't force a page rerender. Wasn't able to figure out how to fix that.
 * [2017-03-17 Fri] 
 ** After today users will be able to
 *** DONE See the channels they belong to

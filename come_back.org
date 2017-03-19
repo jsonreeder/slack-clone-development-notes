@@ -43,5 +43,6 @@ Tasks to come back to, temporarily postponed
 - Alphabetical
 - Could also sort by most recent sign in (or put ones that have signed in today at the top). This would be an easy workaround to figuring out who's online
 * Fix position of navbar
-* Disable rubber band scrolling on messages view
-* Make splash page scrollable
+* Extract only necessary information about users forums
+_user.json.jbuilder
+* Fix position of header for forum details
