@@ -1,8 +1,8 @@
 #+TITLE: Snippets
-
 * [2017-03-19 Sun]
 ** After today users will be able to
 *** See /only/ the channels they belong to
+*** Show and hide the channel details view
 *** Join a new channel
 *** Start a new direct message to one person
 *** Start a new direct message to multiple people
@@ -11,6 +11,11 @@
 ** Tasks
 *** Forums
 **** Change channel display to only show channels that the user is a member in
+*** Details view
+**** Improve styling of ~details~ views
+**** Make ~details~ view hideableable
+**** Only display when at the correct url path (~details~)
+*** More Forums
 **** Allow users to create new memberships (join new channels)
 **** Add DMs
 ***** Add placeholder views
