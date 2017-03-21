@@ -54,3 +54,5 @@ _user.json.jbuilder
 * Give users a simple avatar
 - Just the first letter of their name with a box around it (stored as text, not an image)
 * Clean up dm names and message prompt
+* After message creation, receive it in state
+- Better to receive the message and append it to current forum's messages than to requery forum messages

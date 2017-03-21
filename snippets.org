@@ -1,5 +1,41 @@
 #+TITLE: Snippets
 * [2017-03-21 Tue]
+** After today users will be able to
+*** Start a direct message with one person
+*** Start a direct message with multiple people
+*** See well-formatted titles for direct messages
+*** Scroll back through message history
+** Tasks
+*** DONE push
+CLOSED: [2017-03-21 Tue 09:22]
+*** start-direct-message
+**** DONE Update joining a channel
+CLOSED: [2017-03-21 Tue 09:32]
+- Only be able to join a channel, not a dm
+**** Add creation component
+NOTE: Don't worry about 'find' just 'start a conversation'
+***** DONE Add placeholder form
+CLOSED: [2017-03-21 Tue 10:16]
+***** DONE Connect to real users list
+CLOSED: [2017-03-21 Tue 09:50]
+***** Add form submit
+****** DONE Ability to click to add
+CLOSED: [2017-03-21 Tue 12:43]
+******* TODO Show selected users before input
+****** DONE Ability to type to add
+CLOSED: [2017-03-21 Tue 12:43]
+***** Refactor form submit
+****** Clear current text on click
+****** Add x to remove user
+***** Refactor dm creation
+****** Remove current user from dms list
+****** Do not allow duplicate dms
+****** Make sure that the ordering of names is unimportant in creating group dms
+***** Add styling
+****** Update class names
+****** Scrolling
+****** Width and escape button (compare to normal slack)
+***** Receive message after sending (so no update is necessary)
 * [2017-03-20 Mon]
 ** After today users will be able to
 *** DONE See their message history on all channels
