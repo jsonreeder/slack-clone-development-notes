@@ -16,3 +16,6 @@ Awesome things that I'd like to reference in the project
 - Software bug: Smart ship USS Yorktown was left dead in the water in 1997 for nearly 3 hours after a divide by zero error.[30]
 - The Corrupted Blood incident was a software bug in World of Warcraft that caused a status ailment, that was supposed to be locally restricted to a certain level of the game, to be set free, affecting all players everywhere in the virtual game world. This caused players to avoid crowded places in-game, just like in a "real world" epidemic, and the bug became the centre of some academic research on the spread of infectious diseases.[36]
 - http://mysite.science.uottawa.ca/rsmith43/BieberFever.pdf
+* Fact APIs
+- I could make simple bots that connect to apis like cat fact api and number fact api. They could just say things like "did you know that ..."
+- There could be a channel called 'trivia'

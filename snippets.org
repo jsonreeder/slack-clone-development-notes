@@ -1,10 +1,113 @@
 #+TITLE: Snippets
+* [2017-03-20 Mon]
+** After today users will be able to
+*** DONE See their message history on all channels
+CLOSED: [2017-03-20 Mon 14:19]
+*** DONE Send a new message
+CLOSED: [2017-03-20 Mon 17:00]
+*** Start a direct message with one person
+*** Start a direct message with multiple people
+*** Smoothly hide and show the channel details panel
+** Sort term memory
+*** DONE add-message-history
+CLOSED: [2017-03-20 Mon 14:13]
+**** DONE Add MessageHistory Component
+CLOSED: [2017-03-20 Mon 10:13]
+***** DONE Fill with fake data that shows in every view
+CLOSED: [2017-03-20 Mon 10:13]
+**** DONE Add backend
+CLOSED: [2017-03-20 Mon 14:13]
+***** DONE message model
+CLOSED: [2017-03-20 Mon 10:28]
+***** DONE Associations
+CLOSED: [2017-03-20 Mon 10:45]
+****** DONE Message has sender
+CLOSED: [2017-03-20 Mon 10:31]
+- Message.first.messageable
+****** DONE Message has forum
+CLOSED: [2017-03-20 Mon 10:30]
+****** DONE User has messages
+CLOSED: [2017-03-20 Mon 10:45]
+****** DONE Forum has messages
+CLOSED: [2017-03-20 Mon 10:37]
+***** DONE Forums show (getting a forums messages)
+CLOSED: [2017-03-20 Mon 10:56]
+***** DONE messages controller
+CLOSED: [2017-03-20 Mon 11:10]
+**** DONE Add connection
+CLOSED: [2017-03-20 Mon 14:13]
+***** DONE Display previously sent messages
+CLOSED: [2017-03-20 Mon 14:12]
+*** DONE Push
+CLOSED: [2017-03-20 Mon 14:22]
+*** DONE Migrate
+CLOSED: [2017-03-20 Mon 14:24]
+*** DONE Seed
+CLOSED: [2017-03-20 Mon 14:24]
+*** DONE test
+CLOSED: [2017-03-20 Mon 14:48]
+*** DONE restart emacs
+CLOSED: [2017-03-20 Mon 14:48]
+*** DONE compose-message
+CLOSED: [2017-03-20 Mon 17:00]
+**** DONE api util
+CLOSED: [2017-03-20 Mon 11:08]
+successful test
+#+BEGIN_SRC javascript
+$.ajax({
+  method: 'post',
+  url: 'api/messages',
+  data: {
+    message: {
+      forum_id: 31,
+      body: 'Created in ajax!',
+      messageable_type: 'User',
+      messageable_id: 209
+    }
+  }
+})
+#+END_SRC
+**** DONE View
+CLOSED: [2017-03-20 Mon 16:01]
+**** DONE Actions
+CLOSED: [2017-03-20 Mon 17:00]
+- Make channel links redirect to the view with details
+- adjust border color, try typing a lot
+*** direct-message
+**** Integrate with existing messages component
+***** DONE Add dm channels in rails console
+CLOSED: [2017-03-20 Mon 17:53]
+***** Add dm channels in api (to test controller)
+#+BEGIN_SRC javascript
+  $.ajax({
+    method: 'post',
+    url: 'api/forums',
+    data: {
+      forum: {
+        current_user: "hannibal",
+        other_users: ["clarice"]
+      }
+    }
+  })
+#+END_SRC
+***** Seed some individual dms
+***** Seed some group dms
+***** Remove placeholder
+***** Display existing dms
+***** Make sure the content in the individual dms looks okay
+**** Add creation component
+**** Add
+- mario, luigi
+- link, zelda
+- mufasa, simba
 * [2017-03-19 Sun]
 ** After today users will be able to
 *** DONE See /only/ the channels they belong to
 CLOSED: [2017-03-19 Sun 09:57]
-*** Show and hide the channel details view
-*** Join a new channel
+*** DONE Show and hide the channel details view
+CLOSED: [2017-03-19 Sun 22:17]
+*** DONE Join a new channel
+CLOSED: [2017-03-19 Sun 22:17]
 *** Start a new direct message to one person
 *** Start a new direct message to multiple people
 *** See a history of their messages in channels and direct messages
@@ -21,7 +124,8 @@ CLOSED: [2017-03-19 Sun 16:20]
 **** DONE Only display when at the correct url path (~details~)
 CLOSED: [2017-03-19 Sun 16:20]
 *** More Forums
-**** Allow users to create new memberships (join new channels)
+**** DONE Allow users to create new memberships (join new channels)
+CLOSED: [2017-03-19 Sun 21:48]
 **** Add DMs
 ***** Add placeholder views
 ****** DMs index
@@ -33,13 +137,10 @@ CLOSED: [2017-03-19 Sun 16:20]
 **** Add messages table
 **** Seed some data
 **** Replace placeholder with data fetched from database
-** Short Term Memory
-- Pick up at allow users to join channels
-** Thoughts
-- If possible, I'd like to finish all of the major display components
-- The next still will be to plug in messages
 ** Tough points
 - Added a button to show/hide details view for a given message, but it doesn't force a page rerender. Wasn't able to figure out how to fix that.
+- Adding the logic to create a new membership (in the channels index) was a lot of work, given that it is a many-to-many polymorphic association
+- Got sucked into styling and distracted from some of the major goals I had set out to accomplish
 * [2017-03-17 Fri] 
 ** After today users will be able to
 *** DONE See the channels they belong to

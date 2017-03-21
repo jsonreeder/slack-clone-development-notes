@@ -4,3 +4,8 @@
 ** Can I make my app receive incoming webhooks (external bots)?
 * Next Meeting
 ** Why is the details button not rerendering?
+- Just use a boolean
+** Why does the channels list not update after a new join?
+- Try making a change to state
+** How can I change the button to hide the details if they're already displayed?
+- Just use a boolean

@@ -46,3 +46,10 @@ Tasks to come back to, temporarily postponed
 * Extract only necessary information about users forums
 _user.json.jbuilder
 * Fix position of header for forum details
+* When users are created, automatically have them join general
+* Pointer over sign out should become hand
+- Also consider changing the icon to be the text "sign out"
+* Ensure that new users
+* Every time I've used 'vh' and 'vw' things start to look bad on small screens
+* Give users a simple avatar
+- Just the first letter of their name with a box around it (stored as text, not an image)
