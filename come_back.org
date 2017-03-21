@@ -53,3 +53,4 @@ _user.json.jbuilder
 * Every time I've used 'vh' and 'vw' things start to look bad on small screens
 * Give users a simple avatar
 - Just the first letter of their name with a box around it (stored as text, not an image)
+* Clean up dm names and message prompt

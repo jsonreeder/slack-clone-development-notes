@@ -1,4 +1,5 @@
 #+TITLE: Snippets
+* [2017-03-21 Tue]
 * [2017-03-20 Mon]
 ** After today users will be able to
 *** DONE See their message history on all channels
@@ -7,8 +8,11 @@ CLOSED: [2017-03-20 Mon 14:19]
 CLOSED: [2017-03-20 Mon 17:00]
 *** Start a direct message with one person
 *** Start a direct message with multiple people
-*** Smoothly hide and show the channel details panel
-** Sort term memory
+** Thoughts
+- I found myself getting a bit distracted yesterday. I would start working on a feature, and then would break off and change bits of another feature. To keep myself more focused, I kept task notes here organized by the feature branch name. This was effective. I found that I kept myself more focused to the feature I wanted to be making progress on.
+- I'm very happy that I've taken a frontend-first approach, building out dummy views before plugging in any backend. It has meant that my app has looked pretty good at every stage. In other words, the features that are there look complete.
+- Once again, was not able to hit all of my goals, but I'm happy with my progress for the day
+** Tasks
 *** DONE add-message-history
 CLOSED: [2017-03-20 Mon 14:13]
 **** DONE Add MessageHistory Component
@@ -38,16 +42,6 @@ CLOSED: [2017-03-20 Mon 11:10]
 CLOSED: [2017-03-20 Mon 14:13]
 ***** DONE Display previously sent messages
 CLOSED: [2017-03-20 Mon 14:12]
-*** DONE Push
-CLOSED: [2017-03-20 Mon 14:22]
-*** DONE Migrate
-CLOSED: [2017-03-20 Mon 14:24]
-*** DONE Seed
-CLOSED: [2017-03-20 Mon 14:24]
-*** DONE test
-CLOSED: [2017-03-20 Mon 14:48]
-*** DONE restart emacs
-CLOSED: [2017-03-20 Mon 14:48]
 *** DONE compose-message
 CLOSED: [2017-03-20 Mon 17:00]
 **** DONE api util
@@ -74,10 +68,12 @@ CLOSED: [2017-03-20 Mon 17:00]
 - Make channel links redirect to the view with details
 - adjust border color, try typing a lot
 *** direct-message
-**** Integrate with existing messages component
+**** DONE Integrate with existing messages component
+CLOSED: [2017-03-20 Mon 23:00]
 ***** DONE Add dm channels in rails console
 CLOSED: [2017-03-20 Mon 17:53]
-***** Add dm channels in api (to test controller)
+***** DONE Add dm channels in api (to test controller)
+CLOSED: [2017-03-20 Mon 21:05]
 #+BEGIN_SRC javascript
   $.ajax({
     method: 'post',
@@ -89,17 +85,50 @@ CLOSED: [2017-03-20 Mon 17:53]
       }
     }
   })
+
+  $.ajax({
+    method: 'post',
+    url: 'api/forums',
+    data: {
+      forum: {
+        current_user: "lyra",
+        other_users: ["click", "clack"]
+      }
+    }
+  })
 #+END_SRC
-***** Seed some individual dms
-***** Seed some group dms
-***** Remove placeholder
-***** Display existing dms
-***** Make sure the content in the individual dms looks okay
+***** DONE Add association to get channels vs dms
+CLOSED: [2017-03-20 Mon 21:23]
+***** DONE Remove placeholder
+CLOSED: [2017-03-20 Mon 21:50]
+***** DONE Display existing dms
+CLOSED: [2017-03-20 Mon 21:50]
+***** DONE Fix DM naming
+CLOSED: [2017-03-20 Mon 21:56]
+***** DONE Fix styling for going to DM
+CLOSED: [2017-03-20 Mon 22:09]
+***** WAIT Fix stying for current channel
+***** WAIT Add minimum width to channel details
+***** DONE Make sure the content in the individual dms looks okay
+CLOSED: [2017-03-20 Mon 22:23]
+***** DONE Seed some individual dms
+CLOSED: [2017-03-20 Mon 22:56]
+***** DONE Seed some group dms
+CLOSED: [2017-03-20 Mon 22:56]
+***** DONE Remove channel details button
+CLOSED: [2017-03-20 Mon 22:25]
+**** Update joining a channel
+- Only be able to join a channel, not a dm
 **** Add creation component
-**** Add
+**** DONE Add
+CLOSED: [2017-03-20 Mon 22:27]
 - mario, luigi
 - link, zelda
-- mufasa, simba
+- simba, rafiki
+- calvin, hobbes
+- sherlock, watson
+- winniethepooh, christopherrobin
+- jekyll, hyde
 * [2017-03-19 Sun]
 ** After today users will be able to
 *** DONE See /only/ the channels they belong to
