@@ -1,41 +1,18 @@
 #+TITLE: Snippets
 * [2017-03-21 Tue]
 ** After today users will be able to
-*** Start a direct message with one person
-*** Start a direct message with multiple people
-*** See well-formatted titles for direct messages
-*** Scroll back through message history
-** Tasks
-*** DONE push
-CLOSED: [2017-03-21 Tue 09:22]
-*** start-direct-message
-**** DONE Update joining a channel
-CLOSED: [2017-03-21 Tue 09:32]
-- Only be able to join a channel, not a dm
-**** Add creation component
-NOTE: Don't worry about 'find' just 'start a conversation'
-***** DONE Add placeholder form
-CLOSED: [2017-03-21 Tue 10:16]
-***** DONE Connect to real users list
-CLOSED: [2017-03-21 Tue 09:50]
-***** Add form submit
-****** DONE Ability to click to add
-CLOSED: [2017-03-21 Tue 12:43]
-******* TODO Show selected users before input
-****** DONE Ability to type to add
-CLOSED: [2017-03-21 Tue 12:43]
-***** Refactor form submit
-****** Clear current text on click
-****** Add x to remove user
-***** Refactor dm creation
-****** Remove current user from dms list
-****** Do not allow duplicate dms
-****** Make sure that the ordering of names is unimportant in creating group dms
-***** Add styling
-****** Update class names
-****** Scrolling
-****** Width and escape button (compare to normal slack)
-***** Receive message after sending (so no update is necessary)
+*** DONE Start a direct message with one person
+CLOSED: [2017-03-22 Wed 00:02]
+*** DONE Start a direct message with multiple people
+CLOSED: [2017-03-22 Wed 00:02]
+*** DONE See well-formatted titles for direct messages
+CLOSED: [2017-03-22 Wed 00:02]
+*** DONE Scroll back through message history
+CLOSED: [2017-03-22 Wed 00:02]
+** Thoughts
+- There are lots of small tasks that need to be done (as opposed to starting, when most of the todos were general). I've started a new file to organize them. The big challenge here is prioritization, followed by staying focused on making one set of changes at a time
+- That was very helpful. The longer I've worked on the project, the more I've benefited from splitting my mind between planning and doing. When I'm starting to get groggy, it's best if I write out every step of what I want to do. Then I have something to reference to anchor my thinking.
+- I accomplished all of my goals for the day!
 * [2017-03-20 Mon]
 ** After today users will be able to
 *** DONE See their message history on all channels
