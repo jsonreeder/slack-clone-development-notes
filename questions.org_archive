@@ -44,3 +44,25 @@ CLOSED: [2017-03-19 Sun 12:11]
 :ARCHIVE_CATEGORY: questions
 :ARCHIVE_TODO: DONE
 :END:
+
+* DONE How can I change the button to hide the details if they're already displayed?
+CLOSED: [2017-03-22 Wed 21:56]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-22 Wed 21:56
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/questions.org
+:ARCHIVE_OLPATH: Next Meeting
+:ARCHIVE_CATEGORY: questions
+:ARCHIVE_TODO: DONE
+:END:
+- Just use a boolean
+
+* DONE Why does the channels list not update after a new join?
+CLOSED: [2017-03-22 Wed 21:56]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-22 Wed 21:56
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/questions.org
+:ARCHIVE_OLPATH: Next Meeting
+:ARCHIVE_CATEGORY: questions
+:ARCHIVE_TODO: DONE
+:END:
+- Try making a change to state

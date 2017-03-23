@@ -1,4 +1,20 @@
 #+TITLE: Snippets
+* [2017-03-22 Wed]
+** After today users will be able to
+*** DONE Receive messages without refreshing
+CLOSED: [2017-03-22 Wed 18:07]
+*** Have a similar experience viewing the app in Chrome and Safari
+*** Have a similar experience viewing the app in Chrome and Chrome Incognito
+*** Have a similar experience viewing the app in Chrome and Firefox
+** TIL
+- Action cable!
+- How to set up a very basic bot
+- How to query an external api via a rails backend
+** Thoughts
+- After getting live chat to work, I got very motivated to add some more functionality
+- The app has started to take shape, and I am having more of a sense for how I hope users will interact with it.
+- I decided to nix the original plan of improving styling, and instead implement bots. I did this partially because I was excited and partially from the perspective of UX. I finally have a working chat app, but it's boring. There's not much you can do besides send messages. Bots are a simple way to /receive/ something of interest. If I can fill them out to be interactive, then they might even allow for interaction, which would be awesome.
+- That was a lot of fun, though there are still some kinks to work out. None of the bots are interactive, which significantly minimizes their effect.
 * [2017-03-21 Tue]
 ** After today users will be able to
 *** DONE Start a direct message with one person

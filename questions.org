@@ -3,9 +3,7 @@
 ** How does a websocket work
 ** Can I make my app receive incoming webhooks (external bots)?
 * Next Meeting
-** Why is the details button not rerendering?
-- Just use a boolean
-** Why does the channels list not update after a new join?
-- Try making a change to state
-** How can I change the button to hide the details if they're already displayed?
-- Just use a boolean
+** Why are bots messaging twice
+** Messages don't show up until page refresh (show doesn't happen on initial render?)
+** Live messages don't always work on first attempt
+** Sometimes when my app loads, there's no data until refresh

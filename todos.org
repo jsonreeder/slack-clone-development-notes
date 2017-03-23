@@ -1,134 +1,37 @@
 #+TITLE: Todos
-* DONE prevent-duplicate-dms
-CLOSED: [2017-03-21 Tue 15:45]
-** DONE Sort names on backend
-CLOSED: [2017-03-21 Tue 15:15]
-** DONE Test
-CLOSED: [2017-03-21 Tue 15:23]
-*** DONE With two
-CLOSED: [2017-03-21 Tue 15:19]
-is it alphabetical?
-#+BEGIN_SRC javascript
-$.ajax({
-  method: 'post',
-  url: 'api/forums',
-  data: {
-    forum: {
-      current_user: "rosencrantz",
-      other_users: ["hannibal"]
-    }
-  }
-})
-#+END_SRC
-*** DONE With three
-CLOSED: [2017-03-21 Tue 15:21]
-Does it come out the same way both times?
-**** First way
-#+BEGIN_SRC javascript
-$.ajax({
-  method: 'post',
-  url: 'api/forums',
-  data: {
-    forum: {
-      current_user: "rosencrantz",
-      other_users: ["hannibal", "clarice"]
-    }
-  }
-})
-#+END_SRC
-**** Second way
-#+BEGIN_SRC javascript
-$.ajax({
-  method: 'post',
-  url: 'api/forums',
-  data: {
-    forum: {
-      current_user: "hannibal",
-      other_users: ["rosencrantz", "clarice"]
-    }
-  }
-})
-#+END_SRC
-** DONE Make sure that controller does a no op if the channel already exists
-CLOSED: [2017-03-21 Tue 15:23]
-** DONE Try to create duplicate through ajax, make sure that it doesn't happen
-CLOSED: [2017-03-21 Tue 15:23]
-** DONE Double check form
-CLOSED: [2017-03-21 Tue 15:43]
-*** DONE Update the link
-CLOSED: [2017-03-21 Tue 15:33]
-*** DONE Reseed to make sure that I catch future errors
-CLOSED: [2017-03-21 Tue 15:38]
-*** DONE Delete unused code from form
-CLOSED: [2017-03-21 Tue 15:43]
-*** DONE Redirect to try not sign in 
-CLOSED: [2017-03-21 Tue 15:39]
-* add-scrolling
-** DONE to dm-creation
-CLOSED: [2017-03-21 Tue 15:55]
-** DONE to chat
-CLOSED: [2017-03-21 Tue 17:21]
-* update-without-refreshing
-** DONE correct chat order
-CLOSED: [2017-03-21 Tue 17:30]
-** DONE auto-update messages after sending one
-CLOSED: [2017-03-21 Tue 18:45]
-** DONE auto-update channels after joining
-CLOSED: [2017-03-21 Tue 23:53]
-*** DONE Receive membership after joining new channel
-CLOSED: [2017-03-21 Tue 19:27]
-*** DONE Make sure forums are getting into state correctly
-CLOSED: [2017-03-21 Tue 19:48]
-*** Receive membership after creating new DM
-**** DONE Have requestAllForums return both channels and DMs
-CLOSED: [2017-03-21 Tue 19:41]
-**** DONE in handleCreateForum
-CLOSED: [2017-03-21 Tue 23:25]
-***** DONE Modify the current user's direct messages
-CLOSED: [2017-03-21 Tue 20:40]
-***** DONE Get the actual created channel
-CLOSED: [2017-03-21 Tue 23:25]
-- does this mean I have to do this elsewhere?
-***** DONE Add back in the creation, but with new method
-CLOSED: [2017-03-21 Tue 22:31]
-***** DONE Make sure action has a forum
-CLOSED: [2017-03-21 Tue 22:35]
-***** DONE Why is this being called outside of creating a new dm?
-CLOSED: [2017-03-21 Tue 23:25]
-- A name collision! Fixed
-***** DONE Append that forum to current users
-CLOSED: [2017-03-21 Tue 22:56]
-***** DONE Re-enable hash-history push to resultant link
-CLOSED: [2017-03-21 Tue 22:56]
-***** Scratch code
-      this.props.createForum(currentUser, otherUsers);
-      this.props.requestAllForums();
-
-      let newUser = merge({}, currentUser);
-      newUser.directMessages = ["horse"];
-      this.props.updateDirectMessages(this.props.currentUser);
-
-
-      this.props.addDirectMessage(currentUser, otherUsers);
-      hashHistory.push(`/messages/${forumTitle}/details`);
-
-
-  case ADD_DIRECT_MESSAGE:
-    // console.log(state);
-    // console.log("reducer firing");
-    // console.log(action);
-    let newUser = merge({}, action.currentUser);
-    newUser.directMessages.push(action.newDirectMessage);
-    // console.log(newUser);
-    return newUser;
-**** Correct the join new channel form
-*** DONE Remove unused code
-CLOSED: [2017-03-21 Tue 23:00]
-- receive single membership
-*** What happens when users have joined all channels?
-*** DONE Address console error
-CLOSED: [2017-03-21 Tue 23:53]
-* add-live-chat
+* bots are people, too
+** make sure that bots show up as members of channels
+** add ability to dm a bot
+- ability exists, they're just not findable in the add forum
+* highlight current channel
+* add new message notifications / unread highlights
+- Do others have this?
+* allow seeing more guests
+** add button "see more guests"
+** only update guests once per day
+- or maybe just skip this
+** test
+- if I open the app up in two browsers, do I see the same user
+* highlight new messages
+* support chrome-incognito
+* support safari
+** make chat history window height 100%
+** double check that it still works in Chrome
+* support firefox
+** update font to display the same in incognito
+* add-production readme
+** link to github repo in app
+* bugs with louis
+** multi-person dm channel creation
+- name is not actually working
+** creating a new multi-person dm
+- Purpose does not list all members (over 4)
+- Members does not alwyas update
+* add branding
+** add logo
+** add name
+** change hosting
+- don't forget to change the url in produciton.rb
 * improve sidebar
 ** number of channels
 ** plus buttons
@@ -139,6 +42,9 @@ CLOSED: [2017-03-21 Tue 23:53]
 - show channel name 'App Academy' or something like it' instead of capital user's name
 - show green dot
 * improve-dm-creation
+** prevent enter press with no users selected
+- now it creates a new channel
+*** On the backend, make sure that no channel is created with just one name
 ** auto-activate typing
 ** remove current user from list
 ** make sure that duplicates are not created
@@ -151,14 +57,10 @@ CLOSED: [2017-03-21 Tue 23:53]
 - automatically join general and random
 ** remove errors
 ** Slack-style button hovers
-** font on incognito
 ** exit button on forums
 - green on hover
 - can click outside of x
 ** breakpoints on splash
-** how does it look on safari?
-** add logo
-** add name
 ** encourage signing up as guest on other auth views
 ** user avatars?
 ** Clicking on a user starts a dm with them
@@ -168,3 +70,18 @@ CLOSED: [2017-03-21 Tue 23:53]
 ** Prevent hash history push error when on current channel (disable link)
 ** Make sure that messages sent at midnight work okay
 - now displaying 0:00 AM
+** Day divisions
+* add-slackbot
+** welcome flow
+- encourage people to open in a new window and try live chat
+* add-notifications
+* unsorted
+** Viewing channels bug
+- Sign in as a user
+- Join a channel
+- sign out
+- sign in as another user
+- go to that channel url
+- You can still go there (even though you are not a member)
+- Is this a problem?
+** Add channel greeting text to beginning of channel history
