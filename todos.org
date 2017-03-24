@@ -1,111 +1,7 @@
 #+TITLE: Todos
-* tougher error
-- why is there an error thrown every time a new dm is created?
-** The error
- Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.6ms)
-ActionView::Template::Error (undefined method `id' for nil:NilClass):
-1: json.extract! @forum, :id, :name, :kind, :topic, :greeting, :members, :messages
-** Just check to make sure that the thing exists every single time it should be rendered
-** Questions
-*** Can I reproduce the bug?
-- Maybe if I put a sleep on the view show page
-*** If not
-**** Can I find every call to the view show page?
-* improve seeds
-** add
-*** r2
-*** bonnie clyde
-*** starsky hutch
-*** scooby shaggy
-*** ash pikachu
-** stop seeding messages from guests
-- just open the channels between pairs
-* add branding
-** add name
-*** Replace capital user name with "Thorp Chat"
-*** package.json
-*** update github repo
-** add logo
-** add favicon
-** change url
-*** auth pages
-*** production.rb
-* improve sidebar
-** Sort channels
-** sort dms
-** number of channels
-** plus buttons
-** sidebar-header
-*** signout
-- use dropdown instead of icon
-*** Name
-- show channel name 'App Academy' or something like it' instead of capital user's name
-- show green dot
-** highlight current channel
-** Prevent hash history push error when on current channel (disable link)
-* improve-dm-creation
-** prevent enter press with no users selected
-- now it creates a new channel
-*** On the backend, make sure that no channel is created with just one name
-** auto-activate typing
-** remove current user from list
-** make sure that duplicates are not created
-** enter adds first person when activated
-** Clear current text on click
-** Add x to remove user
-** width and escape button
-** Purpose does not list all members (over 4)
-- This is an issue with state. It looks fine after refresh
-- Members does not include everyone (bots)
-* Have message compose auto activate
-* add in new forum greetings
-* Slack-style button hovers
-* improve splash & auth
-** encourage signing up as guest on other auth views
-** breakpoints on splash
-* allow seeing more guests
-
-** add button "see more guests"
-** only update guests once per day
-- or maybe just skip this
-** test
-- if I open the app up in two browsers, do I see the same user
-* transition to auto messages for bots
-** stop sending auto messages twice
-- Am I requesting show twice?
-*** When am I requesting message show?
-*** How do I reduce this to once per new message?
-*** once this is done
-**** improve greeting flow
-***** messages guest users after log in, instead of seeding
-***** messages new users after log in (this doesn't exist yet at all)
-** stop seeding messages for bots, just have them auto message
-* WAIT update-new-user-memberships 
-** DONE auto join a thorpbot message
-CLOSED: [2017-03-23 Thu 10:25]
-** WAIT Ran into challenges
-** add welcome flow to new user flow
-** remove welcome flow from seed
-** make sure that users can still sign out
-* Improve members list
-** hover style
-** creates a dm with them
-** Sort members list
-* add chuck norris bot
-- using faker
-* add matz bot
-- using faker
-* bots are people, too
-** make sure that bots show up as members of channels
-** add ability to start a new dm with a bot
-- ability exists, they're just not findable in the add forum
 * add-production readme
 ** link to github repo in app
 ** gifrocket
-* Improve message view
-** Make sure that messages sent at midnight work okay
-- now displaying 0:00 AM
-** Add date
 * cleanup
 ** remove all commented out code
 ** look for "TODO" tags
@@ -113,12 +9,16 @@ CLOSED: [2017-03-23 Thu 10:25]
 ** remove extra branches on gh
 ** add secret console log
 Thanks for checking out Thorp Chat! Interested in poking around the code? Check out the repo:
-* clear guest messages every day at midnight
-* add action cable channel for updates
-** new messages should show up in sidebar
-* make bots interactive
-* add-notifications
-** Viewing channels bug
+* Long term later
+** fix url
+** change url
+*** auth pages
+*** production.rb
+** update github repo to new name
+*** package.json
+** update heroku to new name
+** add-notifications
+*** Viewing channels bug
 - Sign in as a user
 - Join a channel
 - sign out
@@ -126,3 +26,97 @@ Thanks for checking out Thorp Chat! Interested in poking around the code? Check 
 - go to that channel url
 - You can still go there (even though you are not a member)
 - Is this a problem?
+** make bots interactive
+** add action cable channel for receiving messages
+*** new messages should show up in sidebar
+* Short term later
+** Have message compose auto activate
+** improve sidebar
+*** DONE Sort channels
+CLOSED: [2017-03-24 Fri 13:43]
+*** DONE sort dms
+CLOSED: [2017-03-24 Fri 13:43]
+*** number of channels
+*** plus buttons
+*** sidebar-header
+**** signout
+- use dropdown instead of icon
+**** Name
+- show channel name 'App Academy' or something like it' instead of capital user's name
+- show green dot
+*** highlight current channel
+*** CNCL Prevent hash history push error when on current channel (disable link)
+** prevent special characters in usernames
+** improve-dm-creation
+*** prevent enter press with no users selected
+- now it creates a new channel
+**** On the backend, make sure that no channel is created with just one name
+*** auto-activate typing
+*** remove current user from list
+*** make sure that duplicates are not created
+*** enter adds first person when activated
+*** Clear current text on click
+*** Add x to remove user
+*** width and escape button
+*** Purpose does not list all members (over 4)
+- This is an issue with state. It looks fine after refresh
+- Members does not include everyone (bots)
+** Slack-style button hovers
+** add in new forum greetings
+** improve seeds
+*** add
+**** r2
+**** bonnie clyde
+**** starsky hutch
+**** scooby shaggy
+**** ash pikachu
+*** stop seeding messages from guests
+ - just open the channels between pairs
+** improve splash & auth
+*** encourage signing up as guest on other auth views
+*** breakpoints on splash
+*** splash text
+ - Where chat* happens
+ - Chat with a friend, chat with a bot, chat with yourself! ?
+** allow seeing more guests
+*** add button "see more guests"
+*** only update guests once per day
+ - or maybe just skip this
+*** test
+ - if I open the app up in two browsers, do I see the same user
+** transition to auto messages for bots
+*** stop sending auto messages twice
+ - Am I requesting show twice?
+**** When am I requesting message show?
+**** How do I reduce this to once per new message?
+**** once this is done
+***** improve greeting flow
+****** messages guest users after log in, instead of seeding
+****** messages new users after log in (this doesn't exist yet at all)
+*** stop seeding messages for bots, just have them auto message
+*** rename general and random to "trivia" and "greetings"
+**** encourage new users to "learn something" in trivia and "say hi" in greetings
+** turn details view back on
+** WAIT update-new-user-memberships 
+*** DONE auto join a thorpbot message
+*CLOSED: [2017-03-23 Thu 10:25]
+*** WAIT Ran into challenges
+*** add welcome flow to new user flow
+*** remove welcome flow from seed
+*** make sure that users can still sign out
+** add chuck norris bot
+ - using faker
+** add matz bot
+ - using faker
+** bots are people, too
+*** make sure that bots show up as members of channels
+*** add ability to start a new dm with a bot
+ - ability exists, they're just not findable in the add forum
+** Improve message view
+*** Make sure that messages sent at midnight work okay
+ - now displaying 0:00 AM
+*** Add date
+** Improve members list in details view
+*** hover style
+*** creates a dm with them
+*** Sort members list

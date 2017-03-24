@@ -637,3 +637,249 @@ CLOSED: [2017-03-23 Thu 23:14]
 :END:
 - when users try to visit a dm that already exists, don't create it
 ** throw an error if the channel is not created
+
+* DONE simplify start new dm
+CLOSED: [2017-03-24 Fri 09:16]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-24 Fri 09:16
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+** remove text
+** remove current user
+
+* DONE add name
+CLOSED: [2017-03-24 Fri 09:29]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-24 Fri 09:29
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+** DONE Replace capital user name with "Thorp Chat"
+CLOSED: [2017-03-24 Fri 09:22]
+** package.json
+** application.html.erb
+** do a search for "slack-clone"
+
+* DONE add logo
+CLOSED: [2017-03-24 Fri 10:04]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-24 Fri 10:04
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+
+* DONE add favicon
+CLOSED: [2017-03-24 Fri 10:16]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-24 Fri 10:16
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+
+* 500 error
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-24 Fri 13:17
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:END:
+- why is there an error thrown every time a new dm is created?
+** The error
+*** Reproducing
+- Add a new DM
+- In the console it says there's a 500 error
+- The logs say
+  Completed 500 Internal Server Error in 5ms (ActiveRecord: 0.6ms)
+ActionView::Template::Error (undefined method `id' for nil:NilClass):
+1: json.extract! @forum, :id, :name, :kind, :topic, :greeting, :members, :messages
+- The url changes correctly, but the page content remains that of the last forum
+- The direct messages list for the user changes correctly. This means that "receive new direct message" the session action is firing just fine. The problem must be with "receive single forum" the forums action or view
+** Questions
+*** Can I reproduce the bug?
+**** Maybe if I put a sleep on the forum show page
+- This delays page rendering, but doesn't throw and error
+- Interestingly, it delays the rendering of the new DM form. Why is that? That forum shouldn't have to request the forum show page
+**** Why is the dm create page requesting the forum show page?
+- Hmm, it looks like the dm create page is not actually requesting the forum show page
+- Then why did it delay when I put on a sleep?
+**** Reproduced!
+***** The log
+(0.1ms)  BEGIN
+  Forum Load (14.0ms)  SELECT  "forums".* FROM "forums" WHERE "forums"."name" = $1 LIMIT $2  [["name", "abbot-calvin"], ["LIMIT", 1]]
+  Forum Exists (2.5ms)  SELECT  1 AS one FROM "forums" WHERE "forums"."name" = $1 LIMIT $2  [["name", "abbot-calvin"], ["LIMIT", 1]]
+  SQL (2.0ms)  INSERT INTO "forums" ("name", "kind", "topic", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "abbot-calvin"], ["kind", "direct_message"], ["topic", "The direct message history between abbot and calvin."], ["created_at", 2017-03-24 12:38:57 UTC], ["updated_at", 2017-03-24 12:38:57 UTC]]
+  Rendering api/forums/show.json.jbuilder
+  Rendered api/forums/show.json.jbuilder (15.6ms)
+   (16.0ms)  COMMIT
+Completed 500 Internal Server Error in 87ms (ActiveRecord: 23.0ms)
+
+
+DEPRECATION WARNING: #original_exception is deprecated. Use #cause instead. (called from initialize at /Users/Jason/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/better_errors-2.1.1/lib/better_errors/raised_exception.rb:7)
+DEPRECATION WARNING: #original_exception is deprecated. Use #cause instead. (called from initialize at /Users/Jason/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/gems/better_errors-2.1.1/lib/better_errors/raised_exception.rb:8)
+
+NoMethodError - undefined method `id' for nil:NilClass:
+  jbuilder (2.6.3) lib/jbuilder.rb:260:in `block in _extract_method_values'
+  jbuilder (2.6.3) lib/jbuilder.rb:260:in `_extract_method_values'
+  jbuilder (2.6.3) lib/jbuilder.rb:219:in `extract!'
+  app/views/api/forums/show.json.jbuilder:1:in `_app_views_api_forums_show_json_jbuilder__2632868998246128355_70289861532440'
+***** Notes
+- it's hard to reproduce this reliably, but this looks like the same error
+- it seems that the new forum object is not being returned correctly
+- I think that the problem is not with rendering the forum show page but with /receiving/ new forum information
+*** If not
+**** Can I find every call to the view show page?
+*** Log every time that new forums should be received
+- Look for the empty one
+- Now the bug won't reproduce itself :-(
+*** There are two places this could be coming from
+- Session reducer 'receive new dm'
+- forums reducer 'receive single forum'
+- Not seeing any problems here, but the bug isn't being tripped
+*** Check the times when view is called
+**** in messages.jsx
+***** Is there a time when a new currentForum is passed in, but a request for details is not being made?
+- It appears there might be
+- When console logging newProps and this.props (componenetWillReceiveProps) I notice that there is a time where a new forum has been passed in but this.props has not been updated
+****** Try updating in that case
+**** I've found an unexpected place where requestSingleForum is called!
+- In the forum details component
+***** Disable this for now
+***** Try pushing to heroku and see if this solves the problem
+*** Disable details
+- While doing this, I see that after going to a new dm the messages are not being loaded (ie the original bug)
+- So I added back a line of code I had deleted yesterday while debugging. It requests the forum details from the param after loading
+*** Didn't solve the problem
+- Details is now disabled
+- But I'm still getting the server error
+- Same error in the logs
+- I think this may solve the error that bots were messaging twice, though (since the forum show page was being called twice)
+*** I notice one possibly related bug in my local copy
+- The users number is not updating immediately
+- Maybe a receiving props thing?
+- Could it be the old misalignment I found above?
+*** Console log all the things in Heroku to see what's happening
+- It appears that after the new dm creation, the url is redirected, but the new forum never shows up in props
+- This is different from my local version, in which the new forum does show up in props
+** Day two
+*** Can I run production server in development?
+- Tried to configure this, but was unable to set up the db
+*** Would printing the state of @forum in the forums_controller show more about the error?
+**** Looks like the error was thrown before @create was ever called
+**** Soooo, something is trying to show the forum before it has been created...
+***** Ways to show forum
+- Controller direct to 'api/forums/show
+- Action calls that in ajax
+  - 'fetchSingleForum'
+  - The only action that calls that is requestSingleForum
+***** Track down all of the things that are showing the forum
+****** trace
+017-03-24T18:48:48.876672+00:00 app[web.1]: I, [2017-03-24T18:48:48.876576 #4]  INFO -- : [d8846394-1b18-4e6e-a3cd-210a15c1f16f] Started POST "/api/forums" for 66.162.144.78 at 2017-03-24 18:48:48 +0000
+2017-03-24T18:48:48.877747+00:00 app[web.1]: I, [2017-03-24T18:48:48.877681 #4]  INFO -- : [d8846394-1b18-4e6e-a3cd-210a15c1f16f] Processing by Api::ForumsController#create as JSON
+2017-03-24T18:48:48.877839+00:00 app[web.1]: I, [2017-03-24T18:48:48.877763 #4]  INFO -- : [d8846394-1b18-4e6e-a3cd-210a15c1f16f]   Parameters: {"forum"=>{"current_user"=>"marykate", "other_users"=>["clack"]}}
+2017-03-24T18:48:48.879159+00:00 app[web.1]: <ActionController::Parameters {"current_user"=>"marykate", "other_users"=>["clack"]} permitted: true>
+2017-03-24T18:48:48.879617+00:00 app[web.1]: I, [2017-03-24T18:48:48.878160 #4]  INFO -- : [a3f12055-4499-4afe-b6c9-d682d10ee2ff] Started GET "/api/forums/clack-marykate" for 66.162.144.78 at 2017-03-24 18:48:48 +0000
+2017-03-24T18:48:48.880313+00:00 app[web.1]: I, [2017-03-24T18:48:48.880260 #4]  INFO -- : [a3f12055-4499-4afe-b6c9-d682d10ee2ff] Processing by Api::ForumsController#show as JSON
+2017-03-24T18:48:48.880365+00:00 app[web.1]: I, [2017-03-24T18:48:48.880321 #4]  INFO -- : [a3f12055-4499-4afe-b6c9-d682d10ee2ff]   Parameters: {"name"=>"clack-marykate"}
+2017-03-24T18:48:48.881601+00:00 app[web.1]: D, [2017-03-24T18:48:48.881535 #4] DEBUG -- : [d8846394-1b18-4e6e-a3cd-210a15c1f16f]   User Load (0.7ms)  SELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2  [["username", "marykate"], ["LIMIT", 1]]
+2017-03-24T18:48:48.882986+00:00 app[web.1]: D, [2017-03-24T18:48:48.882926 #4] DEBUG -- : [d8846394-1b18-4e6e-a3cd-210a15c1f16f]   User Load (0.7ms)  SELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2  [["username", "clack"], ["LIMIT", 1]]
+2017-03-24T18:48:48.883518+00:00 app[web.1]: --------------------DEBUGGING: @forum after initialization in create#<Forum id: nil, name: nil, kind: nil, topic: nil, greeting: nil, created_at: nil, updated_at: nil>
+2017-03-24T18:48:48.883962+00:00 app[web.1]: ----------------------------------------DEBUGGING: @forum after configure_dm, before save in create#<Forum id: nil, name: "clack-marykate", kind: "direct_message", topic: "The direct message history between clack and maryk...", greeting: nil, created_at: nil, updated_at: nil>
+2017-03-24T18:48:48.884670+00:00 app[web.1]: --------------------D, [2017-03-24T18:48:48.884596 #4] DEBUG -- : [a3f12055-4499-4afe-b6c9-d682d10ee2ff]   Forum Load (1.1ms)  SELECT  "forums".* FROM "forums" WHERE "forums"."name" = $1 LIMIT $2  [["name", "clack-marykate"], ["LIMIT", 1]]
+2017-03-24T18:48:48.885568+00:00 app[web.1]: --------------------DEBUGGING: @forum after initialization in shownilD, [2017-03-24T18:48:48.884771 #4] DEBUG -- : [d8846394-1b18-4e6e-a3cd-210a15c1f16f]    (0.7ms)  BEGIN
+2017-03-24T18:48:48.886696+00:00 app[web.1]:
+2017-03-24T18:48:48.887369+00:00 app[web.1]: --------------------I, [2017-03-24T18:48:48.887300 #4]  INFO -- : [a3f12055-4499-4afe-b6c9-d682d10ee2ff]   Rendering api/forums/show.json.jbuilder
+2017-03-24T18:48:48.888051+00:00 app[web.1]: D, [2017-03-24T18:48:48.887973 #4] DEBUG -- : [d8846394-1b18-4e6e-a3cd-210a15c1f16f]   Forum Exists (1.3ms)  SELECT  1 AS one FROM "forums" WHERE "forums"."name" = $1 LIMIT $2  [["name", "clack-marykate"], ["LIMIT", 1]]
+2017-03-24T18:48:48.889617+00:00 app[web.1]: I, [2017-03-24T18:48:48.888401 #4]  INFO -- : [a3f12055-4499-4afe-b6c9-d682d10ee2ff]   Rendered api/forums/show.json.jbuilder (1.0ms)
+2017-03-24T18:48:48.889830+00:00 app[web.1]: I, [2017-03-24T18:48:48.889766 #4]  INFO -- : [a3f12055-4499-4afe-b6c9-d682d10ee2ff] Completed 500 Internal Server Error in 9ms (ActiveRecord: 2.0ms)
+2017-03-24T18:48:48.890714+00:00 app[web.1]: F, [2017-03-24T18:48:48.890648 #4] FATAL -- : [a3f12055-4499-4afe-b6c9-d682d10ee2ff]
+2017-03-24T18:48:48.890863+00:00 app[web.1]: F, [2017-03-24T18:48:48.890799 #4] FATAL -- : [a3f12055-4499-4afe-b6c9-d682d10ee2ff] ActionView::Template::Error (undefined method `id' for nil:NilClass):
+2017-03-24T18:48:48.891018+00:00 app[web.1]: F, [2017-03-24T18:48:48.890960 #4] FATAL -- : [a3f12055-4499-4afe-b6c9-d682d10ee2ff]     1: json.extract! @forum, :id, :name, :kind, :topic, :greeting, :members, :messages
+2017-03-24T18:48:48.891021+00:00 app[web.1]: [a3f12055-4499-4afe-b6c9-d682d10ee2ff]     3: # NOTE: Keys will be camel case (createdAt) due to Jbuilder.key_format in
+2017-03-24T18:48:48.891022+00:00 app[web.1]: [a3f12055-4499-4afe-b6c9-d682d10ee2ff]     4: # application.rb
+2017-03-24T18:48:48.891020+00:00 app[web.1]: [a3f12055-4499-4afe-b6c9-d682d10ee2ff]     2:
+2017-03-24T18:48:48.891072+00:00 app[web.1]: F, [2017-03-24T18:48:48.891011 #4] FATAL -- : [a3f12055-4499-4afe-b6c9-d682d10ee2ff]
+2017-03-24T18:48:48.891952+00:00 app[web.1]: D, [2017-03-24T18:48:48.891231 #4] DEBUG -- : [d8846394-1b18-4e6e-a3cd-210a15c1f16f]   SQL (1.7ms)  INSERT INTO "forums" ("name", "kind", "topic", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["name", "clack-marykate"], ["kind", "direct_message"], ["topic", "The direct message history between clack and marykate."], ["created_at", 2017-03-24 18:48:48 UTC], ["updated_at", 2017-03-24 18:48:48 UTC]]
+2017-03-24T18:48:48.892274+00:00 app[web.1]: F, [2017-03-24T18:48:48.891300 #4] FATAL -- : [a3f12055-4499-4afe-b6c9-d682d10ee2ff] app/views/api/forums/show.json.jbuilder:1:in `_app_views_api_forums_show_json_jbuilder___3904639204538920616_70255664189720'
+2017-03-24T18:48:48.892542+00:00 app[web.1]: I, [2017-03-24T18:48:48.891878 #4]  INFO -- : [ca36b39b-4562-424f-b49d-166a8e6e0250] Started GET "/api/users" for 66.162.144.78 at 2017-03-24 18:48:48 +0000
+2017-03-24T18:48:48.893249+00:00 app[web.1]: I, [2017-03-24T18:48:48.893185 #4]  INFO -- : [ca36b39b-4562-424f-b49d-166a8e6e0250] Processing by Api::UsersController#index as JSON
+2017-03-24T18:48:48.893837+00:00 app[web.1]: I, [2017-03-24T18:48:48.893779 #4]  INFO -- : [ca36b39b-4562-424f-b49d-166a8e6e0250]   Rendering api/users/index.json.jbuilder
+2017-03-24T18:48:48.894211+00:00 app[web.1]: D, [2017-03-24T18:48:48.894162 #4] DEBUG -- : [d8846394-1b18-4e6e-a3cd-210a15c1f16f]    (1.9ms)  COMMIT
+2017-03-24T18:48:48.896021+00:00 app[web.1]: D, [2017-03-24T18:48:48.895969 #4] DEBUG -- : [d8846394-1b18-4e6e-a3cd-210a15c1f16f]    (0.5ms)  BEGIN
+2017-03-24T18:48:48.897114+00:00 app[web.1]: D, [2017-03-24T18:48:48.897059 #4] DEBUG -- : [ca36b39b-4562-424f-b49d-166a8e6e0250]   User Load (1.4ms)  SELECT "users".* FROM "users"
+2017-03-24T18:48:48.902145+00:00 app[web.1]: I, [2017-03-24T18:48:48.902056 #4]  INFO -- : [ca36b39b-4562-424f-b49d-166a8e6e0250]   Rendered api/users/index.json.jbuilder (8.2ms)
+2017-03-24T18:48:48.902353+00:00 app[web.1]: I, [2017-03-24T18:48:48.902300 #4]  INFO -- : [ca36b39b-4562-424f-b49d-166a8e6e0250] Completed 200 OK in 9ms (Views: 7.2ms | ActiveRecord: 1.4ms)
+2017-03-24T18:48:48.912890+00:00 app[web.1]: D, [2017-03-24T18:48:48.912803 #4] DEBUG -- : [d8846394-1b18-4e6e-a3cd-210a15c1f16f]   User Load (0.7ms)  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2  [["id", 378], ["LIMIT", 1]]
+2017-03-24T18:48:48.916314+00:00 app[web.1]: D, [2017-03-24T18:48:48.916248 #4] DEBUG -- : [d8846394-1b18-4e6e-a3cd-210a15c1f16f]   Membership Exists (0.9ms)  SELECT  1 AS one FROM "memberships" WHERE "memberships"."forum_id" = $1 AND "memberships"."membershipable_type" = 'User' AND "memberships"."membershipable_id" = 378 LIMIT $2  [["forum_id", 478], ["LIMIT", 1]]
+****** notes
+******* something is calling show before it has finished being created
+***** all the places where requestSingleForum shows up
+HASHHISTORYPUSH!!!
+*** I now understand the problem
+- The form starts creating a forum
+- It form redirects to the messages page (the forum show page)
+- That forum doesn't exist yet
+- The messages page requests that forum
+- It throws an error
+*** Ways to solve it
+**** Controller
+- If @forum isn't found, don't render it
+**** Views
+- Don't query when component mounts
+*** Modify controller
+**** Render okay even if Forum is not found in forum show
+**** Add hash history push back in
+**** Make sure it works in develop
+**** Probably need to add another request for data on frontend
+*** Notes after first attempt
+**** the error is gone, which is amazing
+**** but the content of the page is never loading
+**** I don't think that it will ever come in as future props, but maybe I can make that happen
+***** Add a then action to the thunk
+*** Second attempt
+**** CNCL Dispatch a new action
+***** It should hash history push after it is done
+***** Aaaaah I already did have a new action. I was modifying the wrong one :-(
+**** DONE Add hash history push in the action addDirectMessage
+CLOSED: [2017-03-24 Fri 12:58]
+**** DONE Remove it from handleCreateForum
+CLOSED: [2017-03-24 Fri 12:58]
+**** DONE Add sleep to forum creation as a test
+CLOSED: [2017-03-24 Fri 12:58]
+- it redirects correctly!
+*** Results
+It works
+** Takeaways
+*** Careful with hashHistory.push
+- It was the combination of making a db call, changing urls, and then requesting the results of that db call that lead me down this path
+- If I had kept hashHistory.push to the thunk actions and not the react components, then I would have avoided this
+- Ask the question: "what happens if this db request takes forever." Expect that it will.
+*** If I had only
+- tried adding a sleep function to the right controller (forums create, not forums show) then I would have been able to reproduce the error locally
+** Cleanup
+*** remove print statement from forums_controller
+*** remove console.log session_reducer
+*** remove console.log forums_reducer
+
+* DONE remove lingering print statements
+CLOSED: [2017-03-24 Fri 13:27]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-24 Fri 13:27
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+
+* DONE alphabetize
+CLOSED: [2017-03-24 Fri 13:42]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-24 Fri 13:43
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+** channel
+** dms
