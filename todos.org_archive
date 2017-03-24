@@ -347,3 +347,293 @@ CLOSED: [2017-03-22 Wed 23:21]
 ** add bot
 ** add instruction to check it out in welcome script
 ** seed
+
+* DONE support chrome-incognito
+CLOSED: [2017-03-23 Thu 09:20]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-23 Thu 09:20
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+** install font
+
+* DONE support safari
+CLOSED: [2017-03-23 Thu 09:29]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-23 Thu 09:29
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+** make chat history window height 100%
+** double check that it still works in Chrome
+
+* DONE set general as default
+CLOSED: [2017-03-23 Thu 10:35]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-23 Thu 10:35
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+
+* DONE display-messages-to-new-dms
+CLOSED: [2017-03-23 Thu 15:45]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-23 Thu 15:45
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+** tl;dr
+*** I hit a bug that was hard to reproduce
+- See 'reproduce the bug' below
+- The summary is that I would visit a channel and couldn't send any messages until I refreshed the page, at which point everything worked just fine. Except that sometimes I could send messages. In fact, for every message I sent, I would see it displayed twice!
+- What was hard was that sometimes the bug was not happening. It was not possible to reproduce it perfectly. Sometimes no messages were sent. Sometimes multiple messages were sent.
+*** I went through every possible contributing factor
+- React-redux: could I be missing new props?
+  - No, there were no lifecycle methods that solved the problem
+- Actioncable (web sockets)
+  - How many sockets were being created?
+*** I stoppped the bug but started another
+- By never removing a socket, I could always send messages, but they were being doubled up (as sockets accumulated)
+*** In that process, I discovered something unexpected
+- I would have expected this to create one new socket for every new channel I visited. Instead, it was creating two new sockets for every new channel
+*** I investigated why that unexpected behavior was happening
+- Since two sockets were /always/ being created (ie the bug was highly reproduceable), I had a clear problem to investigate
+- I found that both a parent component and a child component were adding a socket
+*** Solution
+- Stop telling the child component to add a socket
+** reproducing the bug
+- log in
+- create a new dm
+- send a chat
+- it doesn't always show up, sometimes it shows up twice
+- refresh the page
+- it shows up (always just one copy of it)
+*** notes
+- checks rails log. is active job working?
+- it works just fine joining new channels
+** steps to solve
+*** DONE reproduce
+CLOSED: [2017-03-23 Thu 10:41]
+*** DONE check state
+CLOSED: [2017-03-23 Thu 10:41]
+- the message is not being loaded
+- is the current channel being rendered?
+*** DONE try quickfix
+CLOSED: [2017-03-23 Thu 11:06]
+**** quick success
+#+BEGIN_SRC javascript
+else if (newProps.params.forumName) {
+  this.props.requestSingleForum(newProps.params.forumName);
+}
+#+END_SRC
+
+- this solves the problem
+- but it also makes continuous server requests
+- this is sort of a cheap solution, because it is checking params (which are always available). Instead, I should be responding to a lifecycle method
+*** DONE does it respond to any lifecycle methods?
+CLOSED: [2017-03-23 Thu 11:06]
+- when I send a message, is a console log fired from any lifecycle methods?
+- no, so it must be a job firing thing
+***** DONE componentWillReceiveProps - no
+CLOSED: [2017-03-23 Thu 11:04]
+***** DONE componentDidUpdate - no
+CLOSED: [2017-03-23 Thu 11:05]
+***** DONE componentDidMount - no
+CLOSED: [2017-03-23 Thu 11:06]
+*** DONE is the job firing?
+CLOSED: [2017-03-23 Thu 11:14]
+**** yes
+***** the message is not showing up in the browser
+***** but it is in the log
+*** DONE This works fine joining a new channel (not dm). Is that the reason? - no
+CLOSED: [2017-03-23 Thu 11:33]
+**** Is there a difference between those forms?
+- channels_index.jsx just creates a membership
+- direct_message_fom creates a forum
+**** But I don't think that this is the problem
+- When I stopped the dm_form from redirecting and manually left the form after creating a new dm, then navigated to the new dm, the problem was still there
+*** DONE is the data being received? - no
+CLOSED: [2017-03-23 Thu 15:18]
+added a console.log in forum_reducer and nothing was logged
+**** What should be triggering the action? - the socket
+added a console.log in root.jsx (add socket data received) and no data was received
+**** Why isn't it?
+***** DONE maybe the socket isn't connected - no
+CLOSED: [2017-03-23 Thu 11:37]
+- it is logging the right connection
+***** DONE maybe the socket immediately disconnects - don't think so
+CLOSED: [2017-03-23 Thu 11:37]
+- not sure about this
+- adding console.logs to the disconnect never logged anything while navigating around the entire site
+***** maybe the socket is never tripped
+- what should trip it? the job
+****** DONE It is received by the job - yes
+CLOSED: [2017-03-23 Thu 11:45]
+added a debugger to message_broadcast_job, and the message showed up
+****** Is it passing through the job?
+******* DONE Does it get through the message partial - yes
+CLOSED: [2017-03-23 Thu 11:50]
+got to the debugger after that point
+******* TODO what happens after the broadcast?
+- got to the debugger after that point
+- the message and forum look fine
+- I think it has something to do with what happens during the broadcast
+- QUESTION: From ~ActionCable.server.broadcast~ in ~message_broadcast_job~ where is the data sent? Is it sent to the socket added in ~root.jsx~ or is there a media step?
+****** DONE Is there any difference between App when it's working and App when it's not? - no
+CLOSED: [2017-03-23 Thu 12:03]
+- I can't see any
+****** Did I have this problem before introducing action cable?
+*** SOLUTION nested routes
+**** Is there a difference in the server logs?
+***** When it's working
+RoomChannel is transmitting the subscription confirmation
+RoomChannel is streaming from channel_c-3po-luke-lyra-pantalaimon
+***** With the bug
+RoomChannel is streaming from channel_c-3po-lyra
+RoomChannel stopped streaming from channel_undefined
+RoomChannel stopped streaming from channel_c-3po-lyra
+
+  Rendered api/forums/show.json.jbuilder (10.5ms)
+Completed 200 OK in 161ms (Views: 18.4ms | ActiveRecord: 69.3ms)
+**** Why is it different?
+- Something is messing up the socket connections
+**** What if I never remove the socket?
+- Then the bug is fixed, but I send each message multiple times (since sockets pile up on top of each other)
+- BUT, what I would expect is that we just get one new socket each time we go to a channel. Instead of that we're getting /two/ new sockets
+**** So why are we getting two new sockets
+- There was a nested component! Both it and its parent were running the onEnter hook and adding a socket. Removing the onEnter hook from the child fixed all the problems
+** cleanup
+*** DONE turn automessage back on
+CLOSED: [2017-03-23 Thu 15:38]
+- forums_controller.rb
+*** DONE remove console.logs in root.jsx
+CLOSED: [2017-03-23 Thu 15:38]
+*** remove console.log in forum_reducer
+
+* DONE push to heroku test
+CLOSED: [2017-03-23 Thu 15:56]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-23 Thu 15:56
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+** browser support
+** live chat bug
+
+* DONE refactor-flex
+CLOSED: [2017-03-23 Thu 18:28]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-23 Thu 18:28
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+** DONE start a new scss file for all flex
+CLOSED: [2017-03-23 Thu 17:13]
+** DONE port all old flex (for messages) to that file
+CLOSED: [2017-03-23 Thu 17:13]
+** DONE turn off absolute elements
+CLOSED: [2017-03-23 Thu 17:28]
+** DONE get the alignment correct
+CLOSED: [2017-03-23 Thu 17:29]
+** DONE start from the top reflexing
+CLOSED: [2017-03-23 Thu 18:28]
+** DONE cleanup
+CLOSED: [2017-03-23 Thu 18:28]
+- uncomment overflow in messages.jsx
+
+* DONE Address regular errors
+CLOSED: [2017-03-23 Thu 20:01]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-23 Thu 20:01
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+** DONE conditional in receive single message
+CLOSED: [2017-03-23 Thu 19:48]
+** DONE Follow steps for removing standard errors
+CLOSED: [2017-03-23 Thu 20:01]
+
+* DONE weird messages bug
+CLOSED: [2017-03-23 Thu 20:24]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-23 Thu 20:24
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+- Uncaught TypeError: Cannot read property 'messages' of undefined
+** reproduce
+- start a new dm
+- everything looks fine, but there's an error in the console
+** ideas
+- could it be thorpbot?
+
+* DONE push to heroku
+CLOSED: [2017-03-23 Thu 20:24]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-23 Thu 20:24
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+** look for bugs
+*** DONE try putting a capital in the username
+CLOSED: [2017-03-23 Thu 20:24]
+
+* DONE creating a new dm returns a 500
+CLOSED: [2017-03-23 Thu 22:36]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-23 Thu 22:36
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+- https://slack-copy.herokuapp.com/#/messages/c-3po-jason/details
+- could be thorpbot trying to say hi before anything happens
+  - because the server is slow
+** DONE Why am I requesting all forums in messages?
+CLOSED: [2017-03-23 Thu 20:43]
+- don't think this is necessary
+- removed
+** DONE Make sure creating a new channel still works
+CLOSED: [2017-03-23 Thu 20:50]
+*** Only request channels when creating a new channel
+** Make sure creating a new dm still works
+*** trying to 'recreate' a dm returns an error
+- and doesn't redirect
+**** looks like the dm that's added isn't added correctly
+**** looks like the logic should be different for receiving a new forum than for receiving the current forum
+**** create a new action - receive_new_forum
+- or does it need to be session action since it's in the current user?
+*** trying to 'recreate' the dm that we were last on returns a typeerror
+** Git troubles
+- I had it working without errors, then pushed to Heroku and then there were errors.
+- When I checked on the local copy there were errors
+- I checked out the commit before the hotfix and everything was fine
+- Was it not merged in correctly?
+*** Working commit: c2a7817
+*** I think there are problems with merging
+*** This is taking me a long time and is difficult
+*** I fixed the problem once, I can fix it again
+*** Work on develop, reset back
+*** Fix the problems again
+*** merge it into master
+*** don't use git flow for the merge
+
+* DONE simple error
+CLOSED: [2017-03-23 Thu 23:14]
+:PROPERTIES:
+:ARCHIVE_TIME: 2017-03-23 Thu 23:14
+:ARCHIVE_FILE: ~/Created/Projects/aa-projects/fullstack/slack-clone-development-notes/todos.org
+:ARCHIVE_CATEGORY: todos
+:ARCHIVE_TODO: DONE
+:END:
+- when users try to visit a dm that already exists, don't create it
+** throw an error if the channel is not created
